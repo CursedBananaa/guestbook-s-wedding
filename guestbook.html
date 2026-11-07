@@ -681,8 +681,13 @@
     // Initial load
     loadData();
 
-    // Auto-refresh every 20 seconds so new RSVPs pop up automatically
-    setInterval(() => loadData(false), 20000);
+    // Auto-refresh when tab becomes active, and every 45s while open
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') loadData(false);
+    });
+    setInterval(() => {
+      if (document.visibilityState === 'visible') loadData(false);
+    }, 45000);
   </script>
 </body>
 </html>
